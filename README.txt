@@ -1,8 +1,18 @@
 How to run this program?
-1. Run the test.py to create a urlMap for global used in hw3.py
-2. Run hw3.py 3 times by puting 3 parameters (folderLocation1-3) into method "indexingInvertedTable" respectively.(After step2, You will see a new folder called "map_result", which is storing the 3 sub-invertedIndex.)
-3. Run merge.py 2 times with "First run" and "Second run"
-4. Now, you will have a completed invertedIndex in "map_result" folder called "combinedTable", run the commented "Output of the data we need:" in test.py to see the statistics output, which will match the data below.
+1. You need to download folder "DEV" by yourself, and divide all the files into 3 folders evenly. The folders name should be "loading1", "loading2", "loading3"
+2. Run the test.py to create two urlMaps for global used in hw3_Milestone#1.py
+3. Run hw3_Milestone#1.py 3 times by puting 3 parameters (folderLocation1-3) into method "indexingInvertedTable" respectively.(After step2, You will see a new folder called "map_result", which is storing the 3 sub-invertedIndex.)
+4. Run merge.py 2 times with "First run" and "Second run"
+5. Now, you will have a completed invertedIndex in "map_result" folder called "combinedTable"
+6. run hw3_Milestone#2.py to try our Search Engine "Googdu"
+
+(Feel free to text Tony if you have any question)
+
+
+
+
+
+Below are the statistics for hw2:
 
 Statistics:
 The number of documents in total is: 55393

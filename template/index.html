@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body style="background-color:white;"></body>
+<body>
+{% raw %}
+<div id="app" class="container">
+    
+    <div style="margin-top: 100px; margin-bottom: 50px" align="center">
+        <img src="https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/102676099_1164870360530231_5067760862404162518_o.jpg?_nc_cat=102&_nc_sid=730e14&_nc_oc=AQnAwsvCKylpKzcVHHADStWeRxvofjALBEQj03DEVUiblA1Yn6M0i7ih5la-zq5Fd48&_nc_ht=scontent-lax3-1.xx&oh=557f5236d9d15e2eca1e7365ae5907ec&oe=5F0486DF" width="480" height="200" alt="">
+    </div>
+
+    <div class="form-row align-items-center" style="margin-top: 20px">
+        <div class="col">
+            <input type="text" class="form-control" v-model="keyword" type="text">
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary"  v-on:click="search">Goodu Search</button>
+        </div>
+    </div>
+
+    <div style="margin-top: 50px">
+        <div class="row" v-for="url in result">
+            <p><a v-bind:href="url">{{url}}</a></p>
+        </div>
+
+    </div>
+</div>
+{% endraw %}
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            keyword: '',
+            result: [],
+        },
+        methods: {
+            search: function(){
+                axios.post('api/search',{       // 还可以直接把参数拼接在url后边
+                    keyword: this.keyword
+                }).then(response => {
+                    this.result.splice(0, this.result.length);
+                    for (let x in response.data.data) {
+                        this.result.push(response.data.data[x]);
+                    }
+                });
+            }
+        }
+
+
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>

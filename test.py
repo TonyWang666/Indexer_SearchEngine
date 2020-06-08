@@ -7,22 +7,22 @@ from lxml import etree
 import math
 from lxml import html
 
-# # initial the urlMap, this must be run first before start hw3.py
-# urlDocIdMap = {}
-# with open('./maps/urlDocIdMap', 'wb') as f:
-#         pickle.dump(urlDocIdMap, f)
-# docIdUrlMap = {}
-# with open('./maps/docIdUrlMap', 'wb') as f:
-#     pickle.dump(docIdUrlMap, f)
-# word2gramMap = {}
-# with open('./maps/word2gramMap', 'wb') as f:
-#     pickle.dump(word2gramMap, f)
-# inGraphMap = {}
-# with open('./maps/inGraph', 'wb') as f:
-#     pickle.dump(inGraphMap, f)
-# outGraphMap = {}
-# with open('./maps/outGraph', 'wb') as f:
-#     pickle.dump(outGraphMap, f)
+# initial the urlMap, this must be run first before start hw3.py
+urlDocIdMap = {}
+with open('./maps/urlDocIdMap', 'wb') as f:
+        pickle.dump(urlDocIdMap, f)
+docIdUrlMap = {}
+with open('./maps/docIdUrlMap', 'wb') as f:
+    pickle.dump(docIdUrlMap, f)
+word2gramMap = {}
+with open('./maps/word2gramMap', 'wb') as f:
+    pickle.dump(word2gramMap, f)
+inGraphMap = {}
+with open('./maps/inGraph', 'wb') as f:
+    pickle.dump(inGraphMap, f)
+outGraphMap = {}
+with open('./maps/outGraph', 'wb') as f:
+    pickle.dump(outGraphMap, f)
 
 
 # word2gramMap = {}

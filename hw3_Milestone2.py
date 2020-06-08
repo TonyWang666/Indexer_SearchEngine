@@ -27,16 +27,18 @@ def ngrams(content, n):
         output[ngramTemp] += 1
     return output
 
-#3 things to do:
+# In total 5 things to do:
 #1. Load the dictionary
 #2. Tokenize all the words and stem all the words
 #3. Find the words in and get a list of documentID one by one with the sum of ranked value
-#4. Return top 5 ranked url
+#4: Product the score with pagerank of the target docId; keep original score if not exist
+#5. Return top 5 ranked url 
 # termWeightInQueryMap: {key: term, Value: weight of this term in query}
 class MiniSearchEngine:
     urlMap = {}
     invertedTable = {}
     word2gramMap = {} #{key: "New York": {key: docId, value: frequency}, ......}
+    pageRankDict = {}
     def __init__(self, urlMapAddress, invertedTableAddress, word2gramMapAddress):
         with open(invertedTableAddress, 'rb') as f:
             self.invertedTable = pickle.load(f)
@@ -44,6 +46,8 @@ class MiniSearchEngine:
             self.urlMap = pickle.load(f)
         with open(word2gramMapAddress, 'rb') as f:
             self.word2gramMap = pickle.load(f)
+        with open('./maps/pageRankDict', 'rb') as f:
+            self.pageRankDict = pickle.load(f)
 
     # 
     def search(self, text):
@@ -65,10 +69,7 @@ class MiniSearchEngine:
             if token in self.word2gramMap:
                 for docId in self.word2gramMap[token]:
                     score = scores.setdefault(docId, 0)
-                    scores[docId] = score + max(10, self.word2gramMap[token][docId])
-                    # print('scores of 2gram is:', scores[docId])
-                    
-
+                    scores[docId] = max(10, score + self.word2gramMap[token][docId])
         for token in tokenList:
             if token not in termWeightInQueryMap:
                 termWeightInQueryMap[token] = 1
@@ -102,23 +103,33 @@ class MiniSearchEngine:
         # Return top 5 url with most rank value
         index = 1
         result = []
+
+        # # Result without Page Rank
+        # # Get top 5 tf-idf algorithm and increment with page rank: k is url, v is score
+        # for k, v in sorted(scores.items(), key=lambda item:item[1], reverse=True):
+        #     if index > 5:
+        #         break
+        #     index += 1
+        #     result.append(self.urlMap[k])
+
+
+        # Result with Page Rank    
         tempRes = {}
-        with open('./maps/pageRankDict', 'rb') as f:
-            pageRankDict = pickle.load(f)
         # get top 20 from tf-idf algortihm and increment with page rank: k is url, v is score
         for k, v in sorted(scores.items(), key=lambda item:item[1], reverse=True):
             if index >= 20: 
                 break
             index += 1
-            tempRes[k] = v + pageRankDict.setdefault(k, 0)
+            tempRes[k] = v * self.pageRankDict.setdefault(k, 1)
         # get top 5 from top 20 with algorithm of tf-idf + pagerank
-        # index = 1
-        # for k, v in sorted(tempRes.items(), key=lambda item:item[1], reverse=True):
-        #     if index > 5:
-        #         break
-        #     index += 1
-        #     result.append(self.urlMap[k])
-        # return result
+        index = 1
+        for k, v in sorted(tempRes.items(), key=lambda item:item[1], reverse=True):
+            if index > 5:
+                break
+            index += 1
+            result.append(self.urlMap[k])
+
+        return result
 
 
                         

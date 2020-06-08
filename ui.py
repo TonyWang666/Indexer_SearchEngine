@@ -4,6 +4,7 @@ import os
 from functools import wraps
 from flask import Flask, Response, request, render_template, send_from_directory
 import simplejson as json
+import timeit
 
 app = Flask(__name__, static_folder="./static", template_folder="./template")
 
@@ -43,7 +44,11 @@ if __name__ == '__main__':
     print("Welcome to Goodu!")
     urlMapAddress = './maps/docIdUrlMap'
     invertedTableAddress = './map_result/combinedTable'
-    searchEngine = MiniSearchEngine(urlMapAddress, invertedTableAddress)
-
+    word2gramMapAddress = './maps/word2gramMap'
+    start = timeit.default_timer()
+    searchEngine = MiniSearchEngine(urlMapAddress, invertedTableAddress, word2gramMapAddress)
+    stop = timeit.default_timer()
+    print('Time: ', stop - start)  
+    
     # listUrl = searchEngine.search(text)
     app.run("0.0.0.0", port=5002)

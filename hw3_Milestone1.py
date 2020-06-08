@@ -55,9 +55,7 @@ def processGraphMap(inGraphMap, outGraphMap, content, uniqueDocId, urlDocIdMap, 
                 docIdUrlMap[newDocId] = link
             else:
                 newDocId = urlDocIdMap[link]
-            # Implement inGraphMap and outGraphMap
-            # inGraphMap[newDocId] = uniqueDocId
-            # outGraphMap[uniqueDocId] = newDocId
+            # Implement inGraphMap and outGraphMap Logic: inGraphMap[newDocId] = uniqueDocId; outGraphMap[uniqueDocId] = newDocId
             inList = inGraphMap.setdefault(newDocId, [])
             inList.append(uniqueDocId)
             outList = outGraphMap.setdefault(uniqueDocId, [])
@@ -95,7 +93,7 @@ def indexingFile(fileLocation, urlDocIdMap, docIdUrlMap, invertedIndex, word2gra
         processGraphMap(inGraphMap, outGraphMap, content, uniqueDocId, urlDocIdMap, docIdUrlMap)
 
         # Initialize rankDictionary with algorithm: totalRank of one token in one document = numTitle * 3 + numHead * 2 + b/strongNum * 1
-        tagRankingDict = {'title': 10, 'h1': 8, 'h2': 6, 'h3': 4, 'b': 3, 'strong': 3, 'p': 1, 'span': 1, "li": 1, "a": 1, "cite": 1, "em": 1, "mark": 1, "abbr": 1}
+        tagRankingDict = {'title': 100, 'h1': 20, 'h2': 10, 'h3': 5, 'b': 5, 'strong': 5, 'p': 1, 'span': 1, "li": 1, "a": 1, "cite": 1, "em": 1, "mark": 1, "abbr": 1}
 
         # Create a word dictionary to save all
         soup = BeautifulSoup(content, 'lxml')
@@ -124,7 +122,7 @@ def indexingFile(fileLocation, urlDocIdMap, docIdUrlMap, invertedIndex, word2gra
 
             rank = tagRankingDict[t.parent.name]
             for token in tokenList:
-                if(len(token) < 3 or len(token) > 10):
+                if(len(token) > 10): #len(token) < 3 or 
                     continue
                 # if token not in invertedIndex, create an object
                 if token not in invertedIndex.keys():

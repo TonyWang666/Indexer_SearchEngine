@@ -24,12 +24,12 @@ def mergeTwoFile(baseFileName, fileName2, storeFileName):
         pickle.dump(baseTable, f)         
     
 if __name__ == '__main__':
-    print("hello world")
+    print("Start Merging")
     fileName1 = './map_result/loading1'
     fileName2 = './map_result/loading2'
     fileName3 = './map_result/loading3'
     storeFileName = './map_result/combinedTable'
     # mergeTwoFile(fileName1, fileName2, storeFileName) # First run
-    mergeTwoFile(storeFileName, fileName2, storeFileName) # Second run
+    mergeTwoFile(storeFileName, fileName3, storeFileName) # Second run
 
     

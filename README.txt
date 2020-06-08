@@ -4,15 +4,10 @@ How to run this program?
 3. Run hw3_Milestone#1.py 3 times by puting 3 parameters (folderLocation1-3) into method "indexingInvertedTable" respectively.(After step2, You will see a new folder called "map_result", which is storing the 3 sub-invertedIndex.)
 4. Run merge.py 2 times with "First run" and "Second run"
 5. Now, you will have a completed invertedIndex in "map_result" folder called "combinedTable"
-6. run hw3_Milestone#2.py to try our Search Engine "Googdu"
+6. Run the file called pageRank.py. It will compute the pagerank for each unique page and save it into pageRankDict
+7. run hw3_Milestone#2.py to try our Search Engine "Googdu"
 
 (Feel free to text Tony if you have any question)
-
-
-
-
-
-Below are the statistics for hw2:
 
 Statistics:
 The number of documents in total is: 55393
